@@ -1,4 +1,4 @@
-﻿import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useAuth } from '../contexts/AuthContext'
 import { Navigate, useSearchParams, Link } from 'react-router-dom'
 
@@ -75,7 +75,8 @@ export default function AuthPage() {
     setSubmitting(false)
   }
 
-  const EyeIcon = ({ show }) => (
+function EyeIcon({ show }) {
+  return (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       {show ? (
         <>
@@ -90,36 +91,37 @@ export default function AuthPage() {
       )}
     </svg>
   )
+}
 
-  function InputField({ id, name, type, label, placeholder, value, autoComplete, showToggle, show, onToggle }) {
-    const isFocused = focused === name
-    return (
-      <div className={`auth2-field ${isFocused ? 'focused' : ''} ${value ? 'has-value' : ''}`}>
-        <label htmlFor={id} className="auth2-label">{label}</label>
-        <div className="auth2-input-wrap">
-          <input
-            id={id}
-            name={name}
-            type={showToggle ? (show ? 'text' : 'password') : type}
-            required
-            autoComplete={autoComplete}
-            className="auth2-input"
-            placeholder={placeholder}
-            value={value}
-            onChange={handleChange}
-            onFocus={() => setFocused(name)}
-            onBlur={() => setFocused(null)}
-          />
-          {showToggle && (
-            <button type="button" className="auth2-eye" onClick={onToggle} aria-label={show ? 'Hide' : 'Show'}>
-              <EyeIcon show={show} />
-            </button>
-          )}
-          <div className="auth2-input-line" />
-        </div>
+function InputField({ id, name, type, label, placeholder, value, autoComplete, showToggle, show, onToggle, focused, onChange, onFocus, onBlur }) {
+  const isFocused = focused === name
+  return (
+    <div className={`auth2-field ${isFocused ? 'focused' : ''} ${value ? 'has-value' : ''}`}>
+      <label htmlFor={id} className="auth2-label">{label}</label>
+      <div className="auth2-input-wrap">
+        <input
+          id={id}
+          name={name}
+          type={showToggle ? (show ? 'text' : 'password') : type}
+          required
+          autoComplete={autoComplete}
+          className="auth2-input"
+          placeholder={placeholder}
+          value={value}
+          onChange={onChange}
+          onFocus={onFocus}
+          onBlur={onBlur}
+        />
+        {showToggle && (
+          <button type="button" className="auth2-eye" onClick={onToggle} aria-label={show ? 'Hide' : 'Show'}>
+            <EyeIcon show={show} />
+          </button>
+        )}
+        <div className="auth2-input-line" />
       </div>
-    )
-  }
+    </div>
+  )
+}
 
   return (
     <div className="auth2-page">
@@ -203,8 +205,8 @@ export default function AuthPage() {
         <div className={`auth2-form-wrap auth2-slide-${animDir}`} key={tab}>
           {tab === TABS.signin ? (
             <form id="form-signin" className="auth2-form" onSubmit={handleSignIn} noValidate>
-              <InputField id="signin-email" name="email" type="email" label="Email address" placeholder="you@example.com" value={form.email} autoComplete="email" />
-              <InputField id="signin-password" name="password" type="password" label="Password" placeholder="Your password" value={form.password} autoComplete="current-password" showToggle show={showPassword} onToggle={() => setShowPassword(!showPassword)} />
+              <InputField id="signin-email" name="email" type="email" label="Email address" placeholder="you@example.com" value={form.email} autoComplete="email" focused={focused} onChange={handleChange} onFocus={() => setFocused('email')} onBlur={() => setFocused(null)} />
+              <InputField id="signin-password" name="password" type="password" label="Password" placeholder="Your password" value={form.password} autoComplete="current-password" showToggle show={showPassword} onToggle={() => setShowPassword(!showPassword)} focused={focused} onChange={handleChange} onFocus={() => setFocused('password')} onBlur={() => setFocused(null)} />
               <button id="btn-signin" type="submit" className={`auth2-submit-btn ${submitting ? 'loading' : ''}`} disabled={submitting}>
                 {submitting ? (
                   <span className="auth2-btn-content">
@@ -227,10 +229,10 @@ export default function AuthPage() {
             </form>
           ) : (
             <form id="form-signup" className="auth2-form" onSubmit={handleSignUp} noValidate>
-              <InputField id="signup-name" name="fullName" type="text" label="Full name" placeholder="Jane Doe" value={form.fullName} autoComplete="name" />
-              <InputField id="signup-email" name="email" type="email" label="Email address" placeholder="you@example.com" value={form.email} autoComplete="email" />
-              <InputField id="signup-password" name="password" type="password" label="Password" placeholder="Min. 8 characters" value={form.password} autoComplete="new-password" showToggle show={showPassword} onToggle={() => setShowPassword(!showPassword)} />
-              <InputField id="signup-confirm" name="confirmPassword" type="password" label="Confirm password" placeholder="Repeat password" value={form.confirmPassword} autoComplete="new-password" showToggle show={showConfirm} onToggle={() => setShowConfirm(!showConfirm)} />
+              <InputField id="signup-name" name="fullName" type="text" label="Full name" placeholder="Jane Doe" value={form.fullName} autoComplete="name" focused={focused} onChange={handleChange} onFocus={() => setFocused('fullName')} onBlur={() => setFocused(null)} />
+              <InputField id="signup-email" name="email" type="email" label="Email address" placeholder="you@example.com" value={form.email} autoComplete="email" focused={focused} onChange={handleChange} onFocus={() => setFocused('email')} onBlur={() => setFocused(null)} />
+              <InputField id="signup-password" name="password" type="password" label="Password" placeholder="Min. 8 characters" value={form.password} autoComplete="new-password" showToggle show={showPassword} onToggle={() => setShowPassword(!showPassword)} focused={focused} onChange={handleChange} onFocus={() => setFocused('password')} onBlur={() => setFocused(null)} />
+              <InputField id="signup-confirm" name="confirmPassword" type="password" label="Confirm password" placeholder="Repeat password" value={form.confirmPassword} autoComplete="new-password" showToggle show={showConfirm} onToggle={() => setShowConfirm(!showConfirm)} focused={focused} onChange={handleChange} onFocus={() => setFocused('confirmPassword')} onBlur={() => setFocused(null)} />
               <button id="btn-signup" type="submit" className={`auth2-submit-btn ${submitting ? 'loading' : ''}`} disabled={submitting}>
                 {submitting ? (
                   <span className="auth2-btn-content">
