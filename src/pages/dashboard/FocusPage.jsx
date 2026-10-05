@@ -27,8 +27,8 @@ function TimerRing({ pct, size = 240, stroke = 10, children }) {
   const circ = 2 * Math.PI * r
   const offset = circ - (pct / 100) * circ
   return (
-    <div className="timer-ring-wrap" style={{ width: size, height: size }}>
-      <svg width={size} height={size} className="timer-ring-svg">
+    <div className="timer-ring-wrap" style={{ width: size, maxWidth: '100%', aspectRatio: '1 / 1' }}>
+      <svg viewBox={`0 0 ${size} ${size}`} width="100%" height="100%" className="timer-ring-svg">
         <circle cx={size / 2} cy={size / 2} r={r} fill="none"
           stroke="var(--bg-surface-3)" strokeWidth={stroke} />
         <circle cx={size / 2} cy={size / 2} r={r} fill="none"

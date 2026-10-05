@@ -3409,3 +3409,270 @@ body {
   .auth2-back-home { top: 16px; left: 16px; }
   .lp-preview-window { transform: none; }
 }
+
+/* =====================================================================
+   RESPONSIVE LAYER — additive overrides only (desktop >1024px untouched)
+   Breakpoints: 1024 (tablet-landscape) · 900 (drawer) · 768 (tablet) · 480 (phone) · 360 (small phone)
+   ===================================================================== */
+
+/* ── Global overflow guards (all sizes) ── */
+html { -webkit-text-size-adjust: 100%; }
+body { overflow-x: clip; }
+img, svg, video, canvas { max-width: 100%; }
+.page-inner, .page-content, .main-content { min-width: 0; }
+.page-content { overflow-x: hidden; }
+.markdown-body { overflow-wrap: anywhere; }
+.markdown-body pre, .markdown-body table { max-width: 100%; overflow-x: auto; display: block; }
+.modal-box { max-height: 90vh; max-height: 90dvh; }
+.dashboard-shell, .sidebar { min-height: 100vh; min-height: 100dvh; }
+.sidebar { overscroll-behavior: contain; }
+
+/* Tab strips scroll rather than overflow */
+.journal-mode-tabs, .filter-tabs { max-width: 100%; }
+.journal-mode-tabs { overflow-x: auto; scrollbar-width: none; }
+.journal-mode-tabs::-webkit-scrollbar { display: none; }
+.journal-mode-tab { white-space: nowrap; }
+
+/* ── Touch devices: comfortable tap targets, no hover-jump, no iOS focus-zoom ── */
+@media (hover: none) and (pointer: coarse) {
+  .btn-primary, .btn-ghost, .btn-danger, .btn-sm,
+  .filter-tab, .journal-mode-tab, .focus-preset-btn,
+  .category-chip, .quick-action, .sidebar-nav-item, .btn-signout,
+  .auth2-tab, .auth2-submit-btn { min-height: 44px; }
+  .icon-btn { min-width: 40px; min-height: 40px; display: inline-flex; align-items: center; justify-content: center; }
+  .icon-chip, .mood-btn { width: 42px; height: 42px; }
+  .color-chip { width: 34px; height: 34px; }
+  .milestone-check, .task-check { width: 26px; height: 26px; }
+  .habit-check-btn { width: 32px; height: 32px; }
+  .milestone-del, .modal-close, .tag-remove, .auth2-eye { min-width: 36px; min-height: 36px; }
+  .topbar-menu-btn { width: 44px; height: 44px; }
+  .stat-card:hover, .goal-card:hover, .habit-card:hover,
+  .journal-entry-card:hover, .quick-action:hover { transform: none; }
+  .form-input, .auth2-input, .tag-input, .focus-custom-input,
+  input, select, textarea { font-size: 16px; }
+}
+
+/* ── ≤1024px: tablet landscape ── */
+@media (max-width: 1024px) {
+  .page-content { padding: 24px 24px; }
+  .dashboard-sections { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+  .focus-layout { grid-template-columns: 1fr 320px; gap: 20px; }
+  .lp-section-sub { font-size: 17px; }
+  .lp-features-section, .lp-how-section, .lp-ai-band { padding: 88px 0; }
+  .lp-testimonials-section { padding: 88px 0 64px; }
+  .lp-testimonials-grid { grid-template-columns: repeat(2, 1fr); }
+  .lp-footer-grid { gap: 32px; }
+  .lp-preview-window { transform: none; }
+  .lp-preview-float-1 { left: -12px; }
+  .lp-preview-float-2 { right: -12px; }
+}
+
+/* ── ≤900px: sidebar is a drawer (existing) – refine ── */
+@media (max-width: 900px) {
+  .sidebar { width: min(var(--sidebar-width), 86vw); z-index: 101; }
+  .topbar { padding: 0 16px; }
+  .focus-layout { grid-template-columns: 1fr; }
+  .profile-form-card { padding: 24px; }
+  .auth2-page { min-height: 100vh; min-height: 100dvh; }
+  .auth2-card { width: min(480px, 100%); padding-top: 72px; }
+  .lp-testimonials-grid { grid-template-columns: 1fr; }
+  .lp-nav-links.open { inset: 0; padding-top: 88px; overflow-y: auto; }
+  .lp-hamburger { align-items: center; justify-content: center; min-width: 44px; min-height: 44px; flex-direction: column; }
+  .lp-nav-inner { gap: 12px; }
+  .lp-nav-actions { gap: 8px; }
+}
+
+/* ── ≤768px: tablet portrait / large phones ── */
+@media (max-width: 768px) {
+  .page-content { padding: 20px 16px; }
+  .page-header { margin-bottom: 22px; }
+  .page-header > * { min-width: 0; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 24px; }
+  .dashboard-section-card, .dash-section-card { padding: 16px; }
+  .dash-goals-grid { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); }
+  .filter-tabs { width: 100%; overflow-x: auto; flex-wrap: nowrap; scrollbar-width: none; }
+  .filter-tabs::-webkit-scrollbar { display: none; }
+  .tasks-summary { padding: 14px 16px; }
+  .tasks-summary-progress { flex-basis: 100%; }
+  .habits-summary-card { flex-wrap: wrap; padding: 16px; }
+  .habits-summary-ring-wrap { flex: 1; min-width: 200px; }
+  .habits-summary-bar { flex: 1; width: auto; }
+  .journal-search { max-width: none; }
+  .journal-free-textarea { min-height: 200px; }
+  .onboarding-card { padding: 28px 22px; }
+  .onboarding-title { font-size: 22px; }
+  .timer-time { font-size: 40px; }
+  .focus-timer-panel { padding: 24px 16px; }
+  .coach-panel { padding: 20px !important; }
+
+  /* Modals → near full-width, scrollable sheet */
+  .modal-backdrop { padding: 12px; align-items: flex-end; }
+  .modal-box { max-width: 100%; border-radius: var(--radius-lg); }
+  .modal-header { padding: 16px 18px 0; }
+  .modal-body { padding: 16px 18px 20px; }
+
+  /* Landing */
+  .lp-hero { padding: 120px 0 64px; min-height: auto; }
+  .lp-hero-inner { padding: 0 20px; }
+  .lp-hero-headline { font-size: clamp(36px, 9vw, 52px); }
+  .lp-hero-sub { font-size: 17px; margin-bottom: 32px; }
+  .lp-hero-ctas { flex-wrap: wrap; justify-content: center; margin-bottom: 32px; }
+  .lp-hero-social { justify-content: center; flex-wrap: wrap; text-align: left; }
+  .lp-scroll-cue { display: none; }
+  .lp-preview-sidebar { display: none; }
+  .lp-preview-body { height: auto; }
+  .lp-preview-main { padding: 16px; gap: 16px; }
+  .lp-preview-stats { grid-template-columns: repeat(2, 1fr); }
+  .lp-preview-float { display: none; }
+  .lp-section-header { margin-bottom: 40px; }
+  .lp-section-sub { font-size: 16px; margin-bottom: 36px; }
+  .lp-features-section, .lp-how-section, .lp-ai-band { padding: 64px 0; }
+  .lp-testimonials-section { padding: 64px 0 48px; }
+  .lp-stat-item { padding: 24px 16px; }
+  .lp-ai-band-inner { gap: 32px; }
+  .lp-cta-section { padding: 24px 16px 56px; }
+  .lp-cta-sub { font-size: 16px; }
+  .lp-footer { padding: 48px 0 24px; }
+  .lp-footer-legal { flex-wrap: wrap; justify-content: center; gap: 16px; }
+}
+
+/* ── ≤480px: phones ── */
+@media (max-width: 480px) {
+  :root { --topbar-height: 56px; }
+  .page-content { padding: 16px 12px; }
+  .page-title { font-size: clamp(20px, 6vw, 24px); }
+  .page-header { gap: 12px; margin-bottom: 18px; }
+  .page-header .btn-primary { width: 100% !important; }
+  .stats-grid { gap: 10px; }
+  .stat-card { padding: 14px; gap: 12px; }
+  .stat-icon-wrap { width: 40px; height: 40px; }
+  .stat-value { font-size: 20px; }
+  .dash-main-grid, .dashboard-sections { gap: 14px; }
+  .dash-score-cluster { flex-wrap: wrap; gap: 14px; }
+  .dash-score-breakdown { min-width: 0; flex: 1 1 100%; }
+  .dash-score-item-label { min-width: 72px; }
+  .dash-goals-grid { grid-template-columns: 1fr; }
+  .quick-actions-grid { display: grid; grid-template-columns: 1fr 1fr; }
+  .quick-action { padding: 10px 12px; min-width: 0; }
+  .quick-action-label { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+  .goal-card { padding: 16px; }
+  .goal-card-header { flex-wrap: wrap; gap: 10px; }
+  .goal-card-actions { margin-left: auto; }
+  .habit-card { flex-wrap: wrap; padding: 14px; gap: 10px; }
+  .habit-card-left { flex-basis: 100%; }
+  .habit-card-right { margin-left: auto; }
+  .task-row { padding: 12px; gap: 10px; flex-wrap: wrap; }
+  .task-row-info { flex-basis: calc(100% - 44px); }
+  .task-row-actions { margin-left: auto; }
+  .journal-entry-card { padding: 16px; }
+  .journal-entry-header { flex-wrap: wrap; }
+  .journal-today-nudge { padding: 14px 16px; }
+  .journal-today-nudge .btn-primary { width: 100% !important; }
+  .empty-state { padding: 40px 16px; }
+  .coming-soon-card { padding: 40px 20px; }
+  .profile-form-card { padding: 20px 16px; }
+  .profile-form-card .btn-primary { width: 100%; align-self: stretch; }
+  .confirm-actions { flex-direction: column-reverse; }
+  .confirm-actions > button { width: 100%; }
+
+  /* Focus timer */
+  .timer-time { font-size: 34px; }
+  .focus-controls { width: 100%; flex-wrap: wrap; justify-content: center; }
+  .focus-btn { padding: 12px 20px; flex: 1 1 40%; }
+  .focus-btn-start, .focus-btn-pause { min-width: 0; flex-basis: 100%; }
+  .focus-save-panel { padding: 16px; }
+  .focus-save-actions { flex-direction: column; align-items: stretch; }
+  .focus-save-actions > button { width: 100%; }
+  .focus-context-card, .focus-stats-card, .focus-history-card { padding: 16px; }
+
+  /* Coach chat */
+  .coach-messages { padding: 12px !important; gap: 12px !important; }
+  .coach-chat-form { padding: 10px !important; gap: 8px !important; }
+  .coach-chat-form input { min-width: 0; }
+  .coach-chat-form .btn-primary { padding-inline: 14px !important; white-space: nowrap; }
+  .coach-panel { padding: 16px !important; }
+  .coach-panel .btn-primary { width: 100% !important; justify-content: center; }
+  .markdown-body h2 { font-size: 1.3em; }
+  .markdown-body h3 { font-size: 1.1em; }
+
+  /* Onboarding / modals */
+  .onboarding-page { padding: 16px 12px; align-items: flex-start; }
+  .onboarding-card { padding: 22px 16px; border-radius: var(--radius-lg); }
+  .onboarding-actions { flex-wrap: wrap; }
+  .modal-title { font-size: 16px; }
+
+  /* Auth */
+  .auth2-card { padding: 68px 18px 28px; }
+  .auth2-title { font-size: 24px; }
+  .auth2-back-home { padding: 6px 12px; font-size: 12px; }
+
+  /* Landing */
+  .lp-container, .lp-nav-inner { padding: 0 16px; }
+  .lp-hero-inner { padding: 0 16px; }
+  .lp-nav { padding: 14px 0; }
+  .lp-nav-scrolled { padding: 10px 0; }
+  .lp-nav-logo-text { font-size: 18px; }
+  .lp-nav-actions .lp-nav-link { display: none; }
+  .lp-nav-actions .lp-btn-sm { padding: 9px 14px; font-size: 13px; }
+  .lp-btn-primary, .lp-btn-ghost { padding: 13px 22px; }
+  .lp-btn-large { padding: 14px 26px; font-size: 15px; }
+  .lp-hero-ctas { flex-direction: column; align-items: stretch; width: 100%; }
+  .lp-hero-ctas > button, .lp-hero-ctas > a { width: 100%; justify-content: center; }
+  .lp-hero-badge { font-size: 12px; padding: 7px 14px; }
+  .lp-hero-sub { font-size: 16px; }
+  .lp-preview-stats { gap: 8px; }
+  .lp-preview-cols { grid-template-columns: 1fr; gap: 16px; }
+  .lp-preview-greeting { font-size: 15px; }
+  .lp-preview-url { padding: 4px 10px; }
+  .lp-preview-dots { left: 10px; }
+  .lp-section-badge { font-size: 12px; padding: 5px 12px; }
+  .lp-stats-section { padding: 40px 0; }
+  .lp-stats-grid { gap: 10px; }
+  .lp-feature-card { padding: 24px 20px; }
+  .lp-feature-tag { top: 16px; right: 16px; }
+  .lp-testimonial-card { padding: 22px 18px; }
+  .lp-ai-chat-mock { padding: 16px; border-radius: 16px; }
+  .lp-ai-msg-bubble { max-width: 92%; }
+  .lp-cta-panel { padding: 32px 18px; }
+  .lp-footer-grid { grid-template-columns: 1fr; gap: 28px; }
+  .lp-footer-desc { max-width: none; }
+  .lp-logos-track::before, .lp-logos-track::after { width: 40px; }
+}
+
+/* ── ≤360px: smallest phones (320–359) ── */
+@media (max-width: 360px) {
+  .page-content { padding: 14px 10px; }
+  .stats-grid { grid-template-columns: 1fr; }
+  .quick-actions-grid { grid-template-columns: 1fr; }
+  .stat-card { padding: 12px; }
+  .topbar { padding: 0 12px; }
+  .sidebar-brand, .sidebar-user { padding-inline: 16px; }
+  .timer-time { font-size: 30px; }
+  .focus-preset-btn { padding: 7px 10px; }
+  .filter-tab { padding: 7px 11px; }
+  .mood-grid, .icon-grid { gap: 5px; }
+  .auth2-card { padding: 64px 14px 24px; }
+  .auth2-input { padding: 12px 14px; padding-right: 42px; }
+  .auth2-tab { padding: 10px 6px; font-size: 13px; }
+  .lp-hero-headline { font-size: 32px; }
+  .lp-nav-logo-text { font-size: 16px; }
+  .lp-stats-grid { grid-template-columns: 1fr; }
+  .lp-section-title { font-size: 28px; }
+  .lp-cta-title { font-size: 28px; }
+  .lp-footer-bottom { gap: 12px; }
+}
+
+/* Landscape phones: keep fixed layers usable */
+@media (max-height: 480px) and (orientation: landscape) {
+  .auth2-card { padding-top: 64px; padding-bottom: 24px; }
+  .onboarding-page { align-items: flex-start; }
+  .modal-box { max-height: 96vh; max-height: 96dvh; }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+}
+
+

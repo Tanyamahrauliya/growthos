@@ -190,7 +190,7 @@ export default function CoachPage() {
             overflow: 'hidden',
           }}>
             {/* Messages */}
-            <div style={{
+            <div className="coach-messages" style={{
               flex: 1, overflowY: 'auto', padding: 20,
               display: 'flex', flexDirection: 'column', gap: 16,
             }}>
@@ -239,6 +239,7 @@ export default function CoachPage() {
 
             {/* Input */}
             <form
+              className="coach-chat-form"
               onSubmit={handleChatSubmit}
               style={{
                 display: 'flex', gap: 10, padding: 16,
@@ -274,7 +275,7 @@ export default function CoachPage() {
 
         {/* ─── Weekly Analysis Tab ─── */}
         {activeTab === 'analysis' && (
-          <div style={{
+          <div className="coach-panel" style={{
             flex: 1, overflowY: 'auto',
             background: 'var(--bg-surface)',
             border: '1px solid var(--border-subtle)',
@@ -317,7 +318,7 @@ export default function CoachPage() {
 
         {/* ─── Next Week Plan Tab ─── */}
         {activeTab === 'plan' && (
-          <div style={{
+          <div className="coach-panel" style={{
             flex: 1, overflowY: 'auto',
             background: 'var(--bg-surface)',
             border: '1px solid var(--border-subtle)',
